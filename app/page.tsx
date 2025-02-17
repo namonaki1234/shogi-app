@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Board from '../../components/Board';
-import { initializeBoard, movePiece, getPossibleMoves } from '../../lib/gameLogic';
+import Board from '../components/Board';
+import { initializeBoard, movePiece, getPossibleMoves } from '../lib/gameLogic';
 
 export default function ClientPage() {
   const [board, setBoard] = useState(initializeBoard());
-  const [selected, setSelected] = useState<{ row: number; col: number } | null>(null);
+  const [selected, setSelected] = useState<{ row: number; col: number } | null>(
+    null
+  );
   const [isSente, setIsSente] = useState<boolean | null>(null); // プレイヤーが先手か後手か
   const [currentTurn, setCurrentTurn] = useState<'sente' | 'gote'>('sente'); // 現在の手番
 
@@ -20,7 +22,9 @@ export default function ClientPage() {
   const handleClick = (row: number, col: number) => {
     if (isSente === null) return; // 先手か後手が選択されていない場合は何もしない
 
-    const isPlayerTurn = (isSente && currentTurn === 'sente') || (!isSente && currentTurn === 'gote');
+    const isPlayerTurn =
+      (isSente && currentTurn === 'sente') ||
+      (!isSente && currentTurn === 'gote');
     if (!isPlayerTurn) return; // プレイヤーの手番でない場合は何もしない
 
     if (selected) {
@@ -37,25 +41,37 @@ export default function ClientPage() {
   useEffect(() => {
     if (isSente === null) return; // 先手か後手が選択されていない場合は何もしない
 
-    const isPlayerTurn = (isSente && currentTurn === 'sente') || (!isSente && currentTurn === 'gote');
+    const isPlayerTurn =
+      (isSente && currentTurn === 'sente') ||
+      (!isSente && currentTurn === 'gote');
     if (isPlayerTurn) return; // プレイヤーの手番の場合は何もしない
 
     // 相手の駒をランダムに選択
     const opponentPieces = [];
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
-        if (board[row][col] && ((isSente && row < 6) || (!isSente && row >= 6))) {
+        if (
+          board[row][col] &&
+          ((isSente && row < 6) || (!isSente && row >= 6))
+        ) {
           opponentPieces.push({ row, col });
         }
       }
     }
 
     if (opponentPieces.length > 0) {
-      const randomPiece = opponentPieces[Math.floor(Math.random() * opponentPieces.length)];
-      const possibleMoves = getPossibleMoves(board, randomPiece.row, randomPiece.col, !isSente);
+      const randomPiece =
+        opponentPieces[Math.floor(Math.random() * opponentPieces.length)];
+      const possibleMoves = getPossibleMoves(
+        board,
+        randomPiece.row,
+        randomPiece.col,
+        !isSente
+      );
 
       if (possibleMoves.length > 0) {
-        const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+        const randomMove =
+          possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
         const newBoard = movePiece(board, randomPiece, randomMove, !isSente);
         setBoard(newBoard);
         setCurrentTurn(currentTurn === 'sente' ? 'gote' : 'sente'); // 手番を切り替え

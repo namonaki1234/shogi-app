@@ -18,7 +18,7 @@ export default function Board({ board, onClick, selected }: BoardProps) {
             <div
               key={colIndex}
               className={`cell ${
-                selected && selected.row === rowIndex && selected.col === colIndex
+                selected?.row === rowIndex && selected?.col === colIndex
                   ? 'selected'
                   : ''
               }`}
