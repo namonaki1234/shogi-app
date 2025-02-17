@@ -1,4 +1,4 @@
-import { BoardState, PieceType } from './types';
+import { BoardState } from './types';
 
 export const initializeBoard = (): BoardState => {
   // 初期の将棋盤を生成
