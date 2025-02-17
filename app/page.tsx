@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Board from '../components/Board';
 import { initializeBoard, movePiece, getPossibleMoves } from '../lib/gameLogic';
 
-export default function ClientPage() {
+export default function Page() {
   const [board, setBoard] = useState(initializeBoard());
   const [selected, setSelected] = useState<{ row: number; col: number } | null>(
     null
