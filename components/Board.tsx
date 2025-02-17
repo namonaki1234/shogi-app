@@ -1,3 +1,5 @@
+'use client';
+
 import Piece from './Piece';
 import { BoardState } from '../lib/types';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { BoardState } from './types';
 
 export const initializeBoard = (): BoardState => {
